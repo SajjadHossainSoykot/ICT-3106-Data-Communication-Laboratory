@@ -1,51 +1,46 @@
 #include <iostream>
 #include <sstream>
 #include <bitset>
-
 using namespace std;
 
-// Convert Decimal IP to Binary IP
-string decimalToBinary(const string& decimalIP) {
-    stringstream ss(decimalIP);
-    string octet, binaryIP;
-
-    while (getline(ss, octet, '.')) {
-        int num = stoi(octet);               // Convert string to integer
-        binaryIP += bitset<8>(num).to_string() + "."; // Convert to 8-bit binary and append
+string decToBin(const string &DecimalIP)
+{
+    string octet, BinaryIP;
+    stringstream ss(DecimalIP);
+    while (getline(ss, octet, '.'))
+    {
+        int num = stoi(octet);
+        BinaryIP += bitset<8>(num).to_string() + '.';
     }
-    binaryIP.pop_back(); // Remove trailing dot
-    return binaryIP;
+    BinaryIP.pop_back();
+    return BinaryIP;
 }
 
-// Convert Binary IP to Decimal IP
-string binaryToDecimal(const string& binaryIP) {
-    stringstream ss(binaryIP);
-    string octet, decimalIP;
-
-    while (getline(ss, octet, '.')) {                    // Read each 8-bit binary octet
-        int num = stoi(octet, nullptr, 2);  // Convert binary string to integer
-        decimalIP += to_string(num) + ".";  // Append to result
+string binToDec(const string &BinaryIP)
+{
+    string octet, DecimalIP;
+    stringstream ss(BinaryIP);
+    while (getline(ss, octet, '.'))
+    {
+        int num = stoi(octet, nullptr, 2);
+        DecimalIP += to_string(num) + '.';
     }
-
-    decimalIP.pop_back(); // Remove trailing dot
-    return decimalIP;
+    DecimalIP.pop_back();
+    return DecimalIP;
 }
 
-int main() {
+int main()
+{
     string decimalIP, binaryIP;
 
     // Decimal to Binary Conversion
     cout << "Enter Decimal IPv4 Address (e.g., 192.168.1.1): ";
     cin >> decimalIP;
-    string binaryRepresentation = decimalToBinary(decimalIP);
-    cout << "Binary Representation: " << binaryRepresentation << endl;
+    cout << "Binary Representation: " << decToBin(decimalIP) << endl;
 
     // Binary to Decimal Conversion
     cout << "Enter Binary IPv4 Address: ";
-    cin.ignore(); // Clear input buffer
-    getline(cin, binaryIP);
-    string decimalRepresentation = binaryToDecimal(binaryIP);
-    cout << "Decimal Representation: " << decimalRepresentation << endl;
-
+    cin >> binaryIP;
+    cout << "Decimal Representation: " << binToDec(binaryIP) << endl;
     return 0;
 }
