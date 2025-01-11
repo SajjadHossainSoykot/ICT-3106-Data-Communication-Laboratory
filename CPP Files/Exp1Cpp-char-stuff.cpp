@@ -23,10 +23,9 @@ string characterStuffing(const string& data) {
 
 string characterDeStuffing(const string& stuffedData) {
     string deStuffedData = "";
-
     size_t i = FLAG1.length(); // Start after the starting flag
     while (i < stuffedData.length() - FLAG2.length()) { // Avoid the ending flag
-        if (stuffedData.substr(i, 3) == "DLE" && stuffedData.substr(i + 3, 3) == "DLE") {
+        if (stuffedData.substr(i, 6) == "DLEDLE") {
             i += 3; // Skip one "DLE" in case of stuffing
         }
         deStuffedData += stuffedData[i];
@@ -41,14 +40,13 @@ int main() {
 
     cout << "Enter Data in Uppercase: ";
     cin >> data;
-
+    for ( char&c : data)
+    
+    {
+        c = toupper(c);
+    }
     // Perform Character Stuffing
-    string stuffedData = characterStuffing(data);
-    cout << "After Stuffing: " << stuffedData << endl;
-
-    // Perform Character De-stuffing
-    string deStuffedData = characterDeStuffing(stuffedData);
-    cout << "After De-stuffing: " << deStuffedData << endl;
-
+    cout<<"After Stuffing: "<<characterStuffing(data)<<endl;
+    cout<<"After De Stuffing: "<<characterDeStuffing(characterStuffing(data))<<endl;
     return 0;
 }
