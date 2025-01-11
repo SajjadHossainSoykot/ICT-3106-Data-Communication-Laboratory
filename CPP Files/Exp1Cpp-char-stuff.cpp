@@ -6,7 +6,7 @@ using namespace std;
 const string FLAG1 = "DLESTX";
 const string FLAG2 = "DLEETX";
 
-string characterStuffing(const string& data) {
+string charStuffing(const string& data) {
     string stuffedData = FLAG1; // Add Starting Flag Sequence
 
     // Character Stuffing
@@ -16,12 +16,11 @@ string characterStuffing(const string& data) {
         }
         stuffedData += data[i];
     }
-
     stuffedData += FLAG2; // Add Ending Flag Sequence
     return stuffedData;
 }
 
-string characterDeStuffing(const string& stuffedData) {
+string charDeStuffing(const string& stuffedData) {
     string deStuffedData = "";
     size_t i = FLAG1.length(); // Start after the starting flag
     while (i < stuffedData.length() - FLAG2.length()) { // Avoid the ending flag
@@ -31,7 +30,6 @@ string characterDeStuffing(const string& stuffedData) {
         deStuffedData += stuffedData[i];
         ++i;
     }
-
     return deStuffedData;
 }
 
@@ -41,12 +39,11 @@ int main() {
     cout << "Enter Data in Uppercase: ";
     cin >> data;
     for ( char&c : data)
-    
     {
         c = toupper(c);
     }
     // Perform Character Stuffing
-    cout<<"After Stuffing: "<<characterStuffing(data)<<endl;
-    cout<<"After De Stuffing: "<<characterDeStuffing(characterStuffing(data))<<endl;
+    cout<<"After Stuffing: "<<charStuffing(data)<<endl;
+    cout<<"After De-Stuffing: "<<charDeStuffing(charStuffing(data))<<endl;
     return 0;
 }
