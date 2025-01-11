@@ -24,6 +24,7 @@ end
 
 % Encoding Signal (Manchester waveform)
 figure;
+subplot(2,1,1)
 plot(t, x, 'LineWidth', 2);
 title('Manchester Encoding: 1 0 1 1 1 0 0 1');
 xlabel('Time');
@@ -31,22 +32,25 @@ ylabel('Amplitude');
 grid on;
 
 % Decoding signal to bitstream
-% Initialize counter for decoding
-counter = 0;
 result = zeros(1, length(bits));  % Preallocate result array
 
-% Loop for decoding
-for i = 1:length(t)
-    if t(i) > counter
-        counter = counter + 1;
-        % Sampling the signal at the midpoint of each bit
-        if x(i) > 0        
-            result(counter) = 0;   % Low-to-high (0 bit)
-        else
-            result(counter) = 1;   % High-to-low (1 bit)
-        end
+% Loop for decoding (sample at midpoints of each bit)
+for i = 1:length(bits)
+    mid_point = (i - 1) * n + n / 2;  % Midpoint for the current bit
+    if x(mid_point) > 0        
+        result(i) = 0;   % Low-to-high (0 bit)
+    else
+        result(i) = 1;   % High-to-low (1 bit)
     end
 end
+
+subplot(2, 1, 2);
+stairs(result, 'Linewidth', 3); % Use stairs plot to show bitstream clearly
+title('Decoded Bitstream');
+xlabel('Bit Position');
+ylabel('Bit Value');
+ylim([-0.5 1.5]);
+grid on;
 
 % Display the decoded bitstream
 disp('Manchester Decoding:');
