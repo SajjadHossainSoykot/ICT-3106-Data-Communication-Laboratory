@@ -51,4 +51,7 @@ def main():
     print(f'After Bit Stuffing: {stuffedData} \n-----------')
     deStuffedData=bitDeStuffing(stuffedData,patternLength)
     print(f'After Bit De Stuffing: {deStuffedData}')
+    if data == deStuffedData:
+        print('Data is Correctly De-Stuffed')
+    else: print('Data is not Correctly De-Stuffed')
 main()
